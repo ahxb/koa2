@@ -1,10 +1,7 @@
-const router = require ('koa-router') ()
 
-// router.get('/', async (ctx, next) => {
-//   await ctx.render('index', {
-//     title: 'Hello Koa 2!'
-//   })
-// })
+const router = require ('koa-router') ();
+// const koaBody = require('koa-body')({multipart: true});
+
 
 router.get ('/getA', async (ctx, next) => {
 
@@ -17,16 +14,20 @@ router.get ('/getA', async (ctx, next) => {
     }
 })
 
+
 router.post ('/postA', async (ctx, next) => {
 
-    let postData = await parsePostData (ctx);
 
-    console.log (33, postData.name);
+    console.log (44,  ctx.request.body);
+
+
+    // let postData = await parsePostData (ctx);
 
     ctx.body = {
+
         success: '200',
         data: {
-            num: postData.name
+            num: ctx.request.body.name
         }
     }
 })
@@ -46,7 +47,7 @@ function parsePostData (ctx) {
                 //测试异步
                 setTimeout (function () {
                     resolve (parseData)
-                }, 3000)
+                }, 300)
 
             })
         } catch (err) {
